@@ -1,3 +1,38 @@
+<amplify-authenticator>
+  <div>
+    Todos App
+    <amplify-sign-out></amplify-sign-out>
+  </div>
+</amplify-authenticator>
+
+<div class="form-body">
+  <form
+    autocomplete="off"
+    [formGroup]="createForm"
+    (ngSubmit)="onCreate(createForm.value)"
+  >
+    <div>
+      <label>Name:</label>
+      <input type="text" formControlName="name" autocomplete="off" />
+    </div>
+    <div>
+      <label>Description:</label>
+      <input type="text" formControlName="description" autocomplete="off" />
+    </div>
+    <div>
+      <label>City:</label>
+      <input type="text" formControlName="city" autocomplete="off" />
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<div *ngFor="let todo of todos">
+  <div>{{ todo?.name }}</div>
+  <div>{{ todo?.description }}</div>
+  <div>{{ todo?.city }}</div>
+</div>
+
 <header class="center">
   <button name="red" (click)="appController.redirectTo('')">Home</button>
 </header>

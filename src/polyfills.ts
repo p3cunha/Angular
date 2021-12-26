@@ -57,9 +57,24 @@
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-import 'zone.js';  // Included with Angular CLI.
-
+import 'zone.js' // Included with Angular CLI.
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+/**
+@source https://docs.amplify.aws/start/getting-started/setup/q/integration/angular/#create-a-new-angular-app
+Currently, the newest versions of Angular (6+) do not include shims for 'global'
+or 'process' as provided in previous versions. Add the following to your
+src/polyfills.ts file to recreate them: */
+;(window as any).global = window
+;(window as any).process = {
+  env: { DEBUG: undefined },
+}
+
+/**
+ * @source https://docs.amplify.aws/start/getting-started/setup/q/integration/angular/#angular-6-support
+ * Internet Explorer 11 (IE11) Support: */
+import 'core-js/es/typed-array'
+import 'core-js/es/object'
