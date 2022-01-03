@@ -5,6 +5,7 @@ subscription OnCreateTodo {
     name
     description
     city
+    image
     createdAt
     updatedAt
   }
@@ -15,6 +16,7 @@ subscription OnUpdateTodo {
     name
     description
     city
+    image
     createdAt
     updatedAt
   }
@@ -25,6 +27,7 @@ subscription OnDeleteTodo {
     name
     description
     city
+    image
     createdAt
     updatedAt
   }

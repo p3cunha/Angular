@@ -9,6 +9,7 @@ export const onCreateTodo = /* GraphQL */ `
       name
       description
       city
+      image
       createdAt
       updatedAt
     }
@@ -21,6 +22,7 @@ export const onUpdateTodo = /* GraphQL */ `
       name
       description
       city
+      image
       createdAt
       updatedAt
     }
@@ -33,6 +35,7 @@ export const onDeleteTodo = /* GraphQL */ `
       name
       description
       city
+      image
       createdAt
       updatedAt
     }

@@ -2,3 +2,12 @@
   display: flex;
   justify-content: center;
 }
+
+.todo-item {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  padding: 1rem;
+  border: 0.5px solid #ff9900;
+  border-radius: 6px;
+}

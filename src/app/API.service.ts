@@ -14,12 +14,14 @@ export type CreateTodoInput = {
   name: string;
   description: string;
   city: string;
+  image?: string | null;
 };
 
 export type ModelTodoConditionInput = {
   name?: ModelStringInput | null;
   description?: ModelStringInput | null;
   city?: ModelStringInput | null;
+  image?: ModelStringInput | null;
   and?: Array<ModelTodoConditionInput | null> | null;
   or?: Array<ModelTodoConditionInput | null> | null;
   not?: ModelTodoConditionInput | null;
@@ -70,6 +72,7 @@ export type Todo = {
   name: string;
   description: string;
   city: string;
+  image?: string | null;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -79,6 +82,7 @@ export type UpdateTodoInput = {
   name?: string | null;
   description?: string | null;
   city?: string | null;
+  image?: string | null;
 };
 
 export type DeleteTodoInput = {
@@ -90,6 +94,7 @@ export type ModelTodoFilterInput = {
   name?: ModelStringInput | null;
   description?: ModelStringInput | null;
   city?: ModelStringInput | null;
+  image?: ModelStringInput | null;
   and?: Array<ModelTodoFilterInput | null> | null;
   or?: Array<ModelTodoFilterInput | null> | null;
   not?: ModelTodoFilterInput | null;
@@ -123,6 +128,7 @@ export type CreateTodoMutation = {
   name: string;
   description: string;
   city: string;
+  image?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -133,6 +139,7 @@ export type UpdateTodoMutation = {
   name: string;
   description: string;
   city: string;
+  image?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -143,6 +150,7 @@ export type DeleteTodoMutation = {
   name: string;
   description: string;
   city: string;
+  image?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -153,6 +161,7 @@ export type GetTodoQuery = {
   name: string;
   description: string;
   city: string;
+  image?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -165,6 +174,7 @@ export type ListTodosQuery = {
     name: string;
     description: string;
     city: string;
+    image?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null>;
@@ -177,6 +187,7 @@ export type OnCreateTodoSubscription = {
   name: string;
   description: string;
   city: string;
+  image?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -187,6 +198,7 @@ export type OnUpdateTodoSubscription = {
   name: string;
   description: string;
   city: string;
+  image?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -197,6 +209,7 @@ export type OnDeleteTodoSubscription = {
   name: string;
   description: string;
   city: string;
+  image?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -216,6 +229,7 @@ export class APIService {
           name
           description
           city
+          image
           createdAt
           updatedAt
         }
@@ -242,6 +256,7 @@ export class APIService {
           name
           description
           city
+          image
           createdAt
           updatedAt
         }
@@ -268,6 +283,7 @@ export class APIService {
           name
           description
           city
+          image
           createdAt
           updatedAt
         }
@@ -291,6 +307,7 @@ export class APIService {
           name
           description
           city
+          image
           createdAt
           updatedAt
         }
@@ -317,6 +334,7 @@ export class APIService {
             name
             description
             city
+            image
             createdAt
             updatedAt
           }
@@ -349,6 +367,7 @@ export class APIService {
           name
           description
           city
+          image
           createdAt
           updatedAt
         }
@@ -367,6 +386,7 @@ export class APIService {
           name
           description
           city
+          image
           createdAt
           updatedAt
         }
@@ -385,6 +405,7 @@ export class APIService {
           name
           description
           city
+          image
           createdAt
           updatedAt
         }

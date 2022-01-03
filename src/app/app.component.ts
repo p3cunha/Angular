@@ -2,10 +2,16 @@ import { Component } from '@angular/core';
 import { AppController } from './appController';
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { APIService, Todo, SubscriptionResponse, OnCreateTodoSubscription } from './API.service';
-import { Observable, Subscription } from 'rxjs';
+import {
+  APIService,
+  Todo,
+  SubscriptionResponse,
+  OnCreateTodoSubscription,
+} from './API.service';
+import { from, Observable, of, Subscription } from 'rxjs';
 import { CommonClass } from './core/common-class';
-import { pluck, takeUntil } from 'rxjs/operators';
+import { catchError, finalize, pluck, takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 enum ButtonColor {
   RED = 'red',
@@ -32,14 +38,9 @@ export class AppComponent extends CommonClass {
     city: ['', Validators.required],
   });
 
-  todo: Todo = {
-    name: 'My first todo',
-    description: 'Hello world!',
-    city: 'Salvador',
-  };
-  todos = new Array<Todo>();
-  todos$ = new Observable<any>();
-  private subscription: Subscription | null = null;
+  todos$ = from(this.api.ListTodos()).pipe(pluck('items')) as Observable<
+    Todo[]
+  >;
 
   title = 'angular';
   buttons: Buttons = [
@@ -51,35 +52,36 @@ export class AppComponent extends CommonClass {
   constructor(
     public appController: AppController,
     private api: APIService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    protected router: Router
   ) {
     super();
+    console.log('router in app', router);
   }
 
-  async ngOnInit() {
-    /* fetch todos when app loads */
-    this.api.ListTodos().then((event) => {
-      this.todos = event.items as Todo[];
-    });
-
-    this.subscription = <Subscription>this.api.OnCreateTodoListener
-    .subscribe(
-      (event: any) => {
-        const newTodo = event.value.data.onCreateTodo;
-        this.todos = [newTodo, ...this.todos];
-      }
-    );
+  getTodoList() {
+    this.todos$ = from(this.api.ListTodos()).pipe(pluck('items')) as Observable<
+      Todo[]
+    >;
   }
 
   onCreate(todo: Todo) {
-    this.api
-      .CreateTodo(todo)
-      .then((event) => {
-        console.log('item created!');
-        this.createForm.reset();
-      })
-      .catch((e) => {
-        console.log('error creating restaurant...', e);
-      });
+    from(this.api.CreateTodo(todo))
+      .pipe(
+        catchError((e) => {
+          console.log('error creating restaurant...', e);
+          return of(e);
+        }),
+        finalize(() => {
+          this.getTodoList();
+          this.createForm.reset();
+        })
+      )
+      .subscribe();
+  }
+
+  deleteTodo(id: string | undefined) {
+    if (id)
+      from(this.api.DeleteTodo({ id })).subscribe(() => this.getTodoList());
   }
 }

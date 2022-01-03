@@ -20,6 +20,12 @@
           "appId": "ds1k6pcnvit87",
           "type": "cicd"
         }
+      },
+      "function": {
+        "S3Trigger1d07a009": {
+          "deploymentBucketName": "amplify-amplifyapp-dev-215703-deployment",
+          "s3Key": "amplify-builds/S3Trigger1d07a009-556e7035436956673335-build.zip"
+        }
       }
     }
   }

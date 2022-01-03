@@ -48,5 +48,29 @@
       "type": "cicd",
       "lastPushTimeStamp": "2021-12-26T00:01:22.073Z"
     }
+  },
+  "function": {
+    "S3Trigger1d07a009": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true
+    }
+  },
+  "storage": {
+    "imageStore": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger1d07a009",
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ]
+        }
+      ]
+    }
   }
 }

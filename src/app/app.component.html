@@ -27,19 +27,21 @@
   </form>
 </div>
 
-<div *ngFor="let todo of todos">
-  <div>{{ todo?.name }}</div>
-  <div>{{ todo?.description }}</div>
-  <div>{{ todo?.city }}</div>
+<div class="todo-item" *ngFor="let todo of todos$ | async">
+  <div>Name: {{ todo?.name }}</div>
+  <div>Description: {{ todo?.description }}</div>
+  <div>City: {{ todo?.city }}</div>
+
+  <button (click)="deleteTodo(todo.id)">Delete</button>
 </div>
 
 <header class="center">
-  <button name="red" (click)="appController.redirectTo('')">Home</button>
+  <button name="red" (click)="redirectTo('')">Home</button>
 </header>
 <button
   *ngFor="let btn of buttons"
   [name]="btn.color"
-  (click)="appController.redirectTo(btn.route)"
+  (click)="redirectTo(btn.route)"
 >
   {{ btn.name }}
 </button>

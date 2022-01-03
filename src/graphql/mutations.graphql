@@ -8,6 +8,7 @@ mutation CreateTodo(
     name
     description
     city
+    image
     createdAt
     updatedAt
   }
@@ -21,6 +22,7 @@ mutation UpdateTodo(
     name
     description
     city
+    image
     createdAt
     updatedAt
   }
@@ -34,6 +36,7 @@ mutation DeleteTodo(
     name
     description
     city
+    image
     createdAt
     updatedAt
   }
