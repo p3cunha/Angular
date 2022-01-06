@@ -1,0 +1,8 @@
+<div class="todo-item" *ngFor="let todo of todos">
+  <div>Name: {{ todo?.name }}</div>
+  <div>Description: {{ todo?.description }}</div>
+  <div>City: {{ todo?.city }}</div>
+
+  <button (click)="editingTodo.next(todo!)">Edit</button>
+  <button (click)="deleteTodo.next(todo?.id)">Delete</button>
+</div>

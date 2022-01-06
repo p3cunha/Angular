@@ -9,12 +9,18 @@ export type AmplifyDependentResourcesAttributes = {
         "amplifyappd4e157ac": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
+            "HostedUIDomain": "string",
+            "OAuthMetadata": "string",
             "UserPoolId": "string",
             "UserPoolArn": "string",
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
             "AppClientID": "string",
-            "CreatedSNSRole": "string"
+            "CreatedSNSRole": "string",
+            "GoogleWebClient": "string",
+            "FacebookWebClient": "string",
+            "AmazonWebClient": "string",
+            "AppleWebClient": "string"
         }
     },
     "function": {
@@ -23,6 +29,30 @@ export type AmplifyDependentResourcesAttributes = {
             "Arn": "string",
             "Region": "string",
             "LambdaExecutionRole": "string"
+        },
+        "amplifyappd4e157acDefineAuthChallenge": {
+            "Name": "string",
+            "Arn": "string",
+            "LambdaExecutionRole": "string",
+            "Region": "string"
+        },
+        "amplifyappd4e157acCreateAuthChallenge": {
+            "Name": "string",
+            "Arn": "string",
+            "LambdaExecutionRole": "string",
+            "Region": "string"
+        },
+        "amplifyappd4e157acVerifyAuthChallengeResponse": {
+            "Name": "string",
+            "Arn": "string",
+            "LambdaExecutionRole": "string",
+            "Region": "string"
+        },
+        "amplifyappd4e157acCustomMessage": {
+            "Name": "string",
+            "Arn": "string",
+            "LambdaExecutionRole": "string",
+            "Region": "string"
         }
     },
     "storage": {

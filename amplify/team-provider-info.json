@@ -13,7 +13,12 @@
     },
     "categories": {
       "auth": {
-        "amplifyappd4e157ac": {}
+        "amplifyappd4e157ac": {
+          "facebookAppId": "pecunha",
+          "googleClientId": "pecunha",
+          "amazonAppId": "pecunha",
+          "appleAppId": "pecunha"
+        }
       },
       "hosting": {
         "amplifyhosting": {
@@ -25,6 +30,26 @@
         "S3Trigger1d07a009": {
           "deploymentBucketName": "amplify-amplifyapp-dev-215703-deployment",
           "s3Key": "amplify-builds/S3Trigger1d07a009-556e7035436956673335-build.zip"
+        },
+        "amplifyappd4e157acDefineAuthChallenge": {
+          "deploymentBucketName": "amplify-amplifyapp-dev-215703-deployment",
+          "s3Key": "amplify-builds/amplifyappd4e157acDefineAuthChallenge-4d376657477561342b48-build.zip"
+        },
+        "amplifyappd4e157acCreateAuthChallenge": {
+          "deploymentBucketName": "amplify-amplifyapp-dev-215703-deployment",
+          "s3Key": "amplify-builds/amplifyappd4e157acCreateAuthChallenge-55374978754a76567465-build.zip"
+        },
+        "amplifyappd4e157acVerifyAuthChallengeResponse": {
+          "RECAPTCHASECRET": "pecunha",
+          "deploymentBucketName": "amplify-amplifyapp-dev-215703-deployment",
+          "s3Key": "amplify-builds/amplifyappd4e157acVerifyAuthChallengeResponse-783665342b324d743750-build.zip"
+        },
+        "amplifyappd4e157acCustomMessage": {
+          "REDIRECTURL": "https://main.ds1k6pcnvit87.amplifyapp.com/",
+          "EMAILSUBJECT": "",
+          "EMAILMESSAGE": "",
+          "deploymentBucketName": "amplify-amplifyapp-dev-215703-deployment",
+          "s3Key": "amplify-builds/amplifyappd4e157acCustomMessage-6267476346797745782f-build.zip"
         }
       }
     }

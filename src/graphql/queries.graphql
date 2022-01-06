@@ -6,6 +6,7 @@ query GetTodo($id: ID!) {
     description
     city
     image
+    owner
     createdAt
     updatedAt
   }
@@ -22,6 +23,7 @@ query ListTodos(
       description
       city
       image
+      owner
       createdAt
       updatedAt
     }

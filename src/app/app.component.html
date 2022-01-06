@@ -9,7 +9,9 @@
   <form
     autocomplete="off"
     [formGroup]="createForm"
-    (ngSubmit)="onCreate(createForm.value)"
+    (ngSubmit)="
+      isEditing ? editTodo(createForm.value) : onCreate(createForm.value)
+    "
   >
     <div>
       <label>Name:</label>
@@ -27,13 +29,11 @@
   </form>
 </div>
 
-<div class="todo-item" *ngFor="let todo of todos$ | async">
-  <div>Name: {{ todo?.name }}</div>
-  <div>Description: {{ todo?.description }}</div>
-  <div>City: {{ todo?.city }}</div>
-
-  <button (click)="deleteTodo(todo.id)">Delete</button>
-</div>
+<app-todo-list
+  [todos]="todos$ | async"
+  (editingTodo)="editingTodo($event)"
+  (deleteTodo)="deleteTodo($event)"
+></app-todo-list>
 
 <header class="center">
   <button name="red" (click)="redirectTo('')">Home</button>

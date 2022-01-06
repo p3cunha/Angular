@@ -4,11 +4,12 @@ import { FormsModule } from "@angular/forms";
 import { AutocompleteComponent } from "./autocomplete/autocomplete.component";
 import { ComponentsRoutingModule } from "./components-routing.module";
 import { ComponentsComponent } from "./components.component";
+import { TodoListComponent } from './todo-list/todo-list.component';
 
 @NgModule({
-  declarations: [ComponentsComponent, AutocompleteComponent],
+  declarations: [ComponentsComponent, AutocompleteComponent, TodoListComponent],
   imports: [CommonModule, FormsModule, ComponentsRoutingModule],
-  exports: [],
+  exports: [TodoListComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ComponentsModule {}

@@ -1,16 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppController } from './appController';
-import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  APIService,
-  Todo,
-  SubscriptionResponse,
-  OnCreateTodoSubscription,
-} from './API.service';
-import { from, Observable, of, Subscription } from 'rxjs';
+import { APIService, Todo, UpdateTodoInput } from './API.service';
+import { from, Observable, of } from 'rxjs';
 import { CommonClass } from './core/common-class';
-import { catchError, finalize, pluck, takeUntil } from 'rxjs/operators';
+import { catchError, finalize, pluck, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 enum ButtonColor {
@@ -33,15 +27,16 @@ interface Buttons extends Array<Button> {}
 })
 export class AppComponent extends CommonClass {
   createForm: FormGroup = this.fb.group({
+    id: [null],
     name: ['', Validators.required],
     description: ['', Validators.required],
     city: ['', Validators.required],
   });
 
-  todos$ = from(this.api.ListTodos()).pipe(pluck('items')) as Observable<
+  todos$ = from(this.api.ListTodos()).pipe(pluck('items'), tap(console.log)) as Observable<
     Todo[]
   >;
-
+  isEditing = false;
   title = 'angular';
   buttons: Buttons = [
     { name: 'RxJS', color: 'yellow', route: 'rxjs' },
@@ -56,11 +51,10 @@ export class AppComponent extends CommonClass {
     protected router: Router
   ) {
     super();
-    console.log('router in app', router);
   }
 
   getTodoList() {
-    this.todos$ = from(this.api.ListTodos()).pipe(pluck('items')) as Observable<
+    this.todos$ = from(this.api.ListTodos()).pipe(pluck('items'), tap(console.log)) as Observable<
       Todo[]
     >;
   }
@@ -80,8 +74,36 @@ export class AppComponent extends CommonClass {
       .subscribe();
   }
 
-  deleteTodo(id: string | undefined) {
-    if (id)
-      from(this.api.DeleteTodo({ id })).subscribe(() => this.getTodoList());
+  editingTodo(todo: Todo) {
+    this.isEditing = true;
+    this.createForm.patchValue({
+      id: todo.id,
+      name: todo.name,
+      description: todo.description,
+      city: todo.city,
+    });
+  }
+
+  editTodo(todo: Todo) {
+    from(this.api.UpdateTodo(todo as UpdateTodoInput))
+      .pipe(
+        finalize(() => {
+          this.isEditing = false;
+          this.createForm.reset();
+        })
+      )
+      .subscribe(() => this.getTodoList());
+    console.log(this.isEditing);
+  }
+
+  deleteTodo(id: string = '') {
+    from(this.api.DeleteTodo({ id }))
+      .pipe(
+        finalize(() => {
+          this.getTodoList();
+          this.createForm.reset();
+        })
+      )
+      .subscribe();
   }
 }

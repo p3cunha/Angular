@@ -9,6 +9,7 @@ mutation CreateTodo(
     description
     city
     image
+    owner
     createdAt
     updatedAt
   }
@@ -23,6 +24,7 @@ mutation UpdateTodo(
     description
     city
     image
+    owner
     createdAt
     updatedAt
   }
@@ -37,6 +39,7 @@ mutation DeleteTodo(
     description
     city
     image
+    owner
     createdAt
     updatedAt
   }

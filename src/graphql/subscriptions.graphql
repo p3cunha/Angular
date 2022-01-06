@@ -6,6 +6,7 @@ subscription OnCreateTodo {
     description
     city
     image
+    owner
     createdAt
     updatedAt
   }
@@ -17,6 +18,7 @@ subscription OnUpdateTodo {
     description
     city
     image
+    owner
     createdAt
     updatedAt
   }
@@ -28,6 +30,7 @@ subscription OnDeleteTodo {
     description
     city
     image
+    owner
     createdAt
     updatedAt
   }

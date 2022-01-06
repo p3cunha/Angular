@@ -10,6 +10,7 @@ export const getTodo = /* GraphQL */ `
       description
       city
       image
+      owner
       createdAt
       updatedAt
     }
@@ -28,6 +29,7 @@ export const listTodos = /* GraphQL */ `
         description
         city
         image
+        owner
         createdAt
         updatedAt
       }

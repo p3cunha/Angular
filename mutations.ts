@@ -13,6 +13,7 @@ export const createTodo = /* GraphQL */ `
       description
       city
       image
+      owner
       createdAt
       updatedAt
     }
@@ -29,6 +30,7 @@ export const updateTodo = /* GraphQL */ `
       description
       city
       image
+      owner
       createdAt
       updatedAt
     }
@@ -45,6 +47,7 @@ export const deleteTodo = /* GraphQL */ `
       description
       city
       image
+      owner
       createdAt
       updatedAt
     }

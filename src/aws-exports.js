@@ -11,13 +11,28 @@ const awsmobile = {
     "aws_cognito_region": "sa-east-1",
     "aws_user_pools_id": "sa-east-1_RhE4jInKn",
     "aws_user_pools_web_client_id": "6nanpjcchg65ancpiq747mm7j9",
-    "oauth": {},
+    "oauth": {
+        "domain": "amplifyappe550dcf7-e550dcf7-dev.auth.sa-east-1.amazoncognito.com",
+        "scope": [
+            "phone",
+            "email",
+            "openid",
+            "profile",
+            "aws.cognito.signin.user.admin"
+        ],
+        "redirectSignIn": "myapp://",
+        "redirectSignOut": "myapp://",
+        "responseType": "code"
+    },
+    "federationTarget": "COGNITO_USER_AND_IDENTITY_POOLS",
     "aws_cognito_username_attributes": [],
-    "aws_cognito_social_providers": [],
+    "aws_cognito_social_providers": [
+        "FACEBOOK"
+    ],
     "aws_cognito_signup_attributes": [
         "EMAIL"
     ],
-    "aws_cognito_mfa_configuration": "OFF",
+    "aws_cognito_mfa_configuration": "OPTIONAL",
     "aws_cognito_mfa_types": [
         "SMS"
     ],

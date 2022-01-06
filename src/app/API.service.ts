@@ -11,10 +11,11 @@ export interface SubscriptionResponse<T> {
 
 export type CreateTodoInput = {
   id?: string | null;
-  name: string;
-  description: string;
-  city: string;
+  name?: string;
+  description?: string;
+  city?: string;
   image?: string | null;
+  owner?: string | null;
 };
 
 export type ModelTodoConditionInput = {
@@ -67,12 +68,13 @@ export type ModelSizeInput = {
 };
 
 export type Todo = {
-  __typename?: "Todo";
+  __typename: "Todo";
   id?: string;
-  name: string;
-  description: string;
-  city: string;
+  name?: string;
+  description?: string;
+  city?: string;
   image?: string | null;
+  owner?: string | null;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -83,6 +85,7 @@ export type UpdateTodoInput = {
   description?: string | null;
   city?: string | null;
   image?: string | null;
+  owner?: string | null;
 };
 
 export type DeleteTodoInput = {
@@ -95,6 +98,7 @@ export type ModelTodoFilterInput = {
   description?: ModelStringInput | null;
   city?: ModelStringInput | null;
   image?: ModelStringInput | null;
+  owner?: ModelStringInput | null;
   and?: Array<ModelTodoFilterInput | null> | null;
   or?: Array<ModelTodoFilterInput | null> | null;
   not?: ModelTodoFilterInput | null;
@@ -129,6 +133,7 @@ export type CreateTodoMutation = {
   description: string;
   city: string;
   image?: string | null;
+  owner?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -140,6 +145,7 @@ export type UpdateTodoMutation = {
   description: string;
   city: string;
   image?: string | null;
+  owner?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -151,6 +157,7 @@ export type DeleteTodoMutation = {
   description: string;
   city: string;
   image?: string | null;
+  owner?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -162,6 +169,7 @@ export type GetTodoQuery = {
   description: string;
   city: string;
   image?: string | null;
+  owner?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -175,6 +183,7 @@ export type ListTodosQuery = {
     description: string;
     city: string;
     image?: string | null;
+    owner?: string | null;
     createdAt: string;
     updatedAt: string;
   } | null>;
@@ -188,6 +197,7 @@ export type OnCreateTodoSubscription = {
   description: string;
   city: string;
   image?: string | null;
+  owner?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -199,6 +209,7 @@ export type OnUpdateTodoSubscription = {
   description: string;
   city: string;
   image?: string | null;
+  owner?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -210,6 +221,7 @@ export type OnDeleteTodoSubscription = {
   description: string;
   city: string;
   image?: string | null;
+  owner?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -230,6 +242,7 @@ export class APIService {
           description
           city
           image
+          owner
           createdAt
           updatedAt
         }
@@ -257,6 +270,7 @@ export class APIService {
           description
           city
           image
+          owner
           createdAt
           updatedAt
         }
@@ -284,6 +298,7 @@ export class APIService {
           description
           city
           image
+          owner
           createdAt
           updatedAt
         }
@@ -308,6 +323,7 @@ export class APIService {
           description
           city
           image
+          owner
           createdAt
           updatedAt
         }
@@ -335,6 +351,7 @@ export class APIService {
             description
             city
             image
+            owner
             createdAt
             updatedAt
           }
@@ -368,6 +385,7 @@ export class APIService {
           description
           city
           image
+          owner
           createdAt
           updatedAt
         }
@@ -387,6 +405,7 @@ export class APIService {
           description
           city
           image
+          owner
           createdAt
           updatedAt
         }
@@ -406,6 +425,7 @@ export class APIService {
           description
           city
           image
+          owner
           createdAt
           updatedAt
         }
