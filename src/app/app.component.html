@@ -10,7 +10,7 @@
     autocomplete="off"
     [formGroup]="createForm"
     (ngSubmit)="
-      isEditing ? editTodo(createForm.value) : onCreate(createForm.value)
+      isEditing ? editTodo(createForm.value) : createTodo(createForm.value)
     "
   >
     <div>
@@ -30,7 +30,7 @@
 </div>
 
 <app-todo-list
-  [todos]="todos$ | async"
+  [todos]="todosFacade.todos$ | async"
   (editingTodo)="editingTodo($event)"
   (deleteTodo)="deleteTodo($event)"
 ></app-todo-list>

@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AppController } from './appController';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { APIService, Todo, UpdateTodoInput } from './API.service';
-import { from, Observable, of } from 'rxjs';
 import { CommonClass } from './core/common-class';
-import { catchError, finalize, pluck, tap } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { TodosFacade } from './core/todo.facade';
+import { Todo } from './interfaces/todo.interface';
 
 enum ButtonColor {
   RED = 'red',
@@ -24,8 +24,9 @@ interface Buttons extends Array<Button> {}
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent extends CommonClass {
+export class AppComponent extends CommonClass implements OnInit {
   createForm: FormGroup = this.fb.group({
     id: [null],
     name: ['', Validators.required],
@@ -33,9 +34,10 @@ export class AppComponent extends CommonClass {
     city: ['', Validators.required],
   });
 
-  todos$ = from(this.api.ListTodos()).pipe(pluck('items'), tap(console.log)) as Observable<
-    Todo[]
-  >;
+  get something() {
+    return true;
+  }
+
   isEditing = false;
   title = 'angular';
   buttons: Buttons = [
@@ -46,31 +48,21 @@ export class AppComponent extends CommonClass {
 
   constructor(
     public appController: AppController,
-    private api: APIService,
+    public todosFacade: TodosFacade,
     private fb: FormBuilder,
     protected router: Router
   ) {
     super();
   }
 
-  getTodoList() {
-    this.todos$ = from(this.api.ListTodos()).pipe(pluck('items'), tap(console.log)) as Observable<
-      Todo[]
-    >;
+  ngOnInit(): void {
+    this.todosFacade.loadAlertas().subscribe();
   }
 
-  onCreate(todo: Todo) {
-    from(this.api.CreateTodo(todo))
-      .pipe(
-        catchError((e) => {
-          console.log('error creating restaurant...', e);
-          return of(e);
-        }),
-        finalize(() => {
-          this.getTodoList();
-          this.createForm.reset();
-        })
-      )
+  createTodo(todo: Todo) {
+    this.todosFacade
+      .createTodo(todo)
+      .pipe(finalize(() => this.createForm.reset()))
       .subscribe();
   }
 
@@ -85,25 +77,18 @@ export class AppComponent extends CommonClass {
   }
 
   editTodo(todo: Todo) {
-    from(this.api.UpdateTodo(todo as UpdateTodoInput))
+    this.todosFacade
+      .updateTodo(todo)
       .pipe(
         finalize(() => {
           this.isEditing = false;
           this.createForm.reset();
         })
       )
-      .subscribe(() => this.getTodoList());
-    console.log(this.isEditing);
+      .subscribe();
   }
 
-  deleteTodo(id: string = '') {
-    from(this.api.DeleteTodo({ id }))
-      .pipe(
-        finalize(() => {
-          this.getTodoList();
-          this.createForm.reset();
-        })
-      )
-      .subscribe();
+  deleteTodo(todo: Todo) {
+    this.todosFacade.removeTodo(todo).subscribe();
   }
 }
