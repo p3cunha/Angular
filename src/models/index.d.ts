@@ -5,7 +5,7 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 type TodoMetaData = {
-  readOnlyFields: 'updatedAt';
+  readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
 export declare class Todo {
@@ -13,8 +13,6 @@ export declare class Todo {
   readonly name?: string;
   readonly description?: string;
   readonly city?: string;
-  readonly image?: string;
-  readonly owner?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Todo, TodoMetaData>);

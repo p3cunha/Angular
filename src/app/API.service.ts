@@ -9,13 +9,18 @@ export interface SubscriptionResponse<T> {
   value: GraphQLResult<T>;
 }
 
+export type __SubscriptionContainer = {
+  onCreateTodo: OnCreateTodoSubscription;
+  onUpdateTodo: OnUpdateTodoSubscription;
+  onDeleteTodo: OnDeleteTodoSubscription;
+};
+
 export type CreateTodoInput = {
   id?: string | null;
-  name?: string;
-  description?: string;
-  city?: string;
+  name?: string | null;
+  description?: string | null;
+  city?: string | null;
   image?: string | null;
-  owner?: string | null;
 };
 
 export type ModelTodoConditionInput = {
@@ -69,14 +74,14 @@ export type ModelSizeInput = {
 
 export type Todo = {
   __typename: "Todo";
-  id?: string;
-  name?: string;
-  description?: string;
-  city?: string;
+  id: string;
+  name?: string | null;
+  description?: string | null;
+  city?: string | null;
   image?: string | null;
+  createdAt: string;
+  updatedAt: string;
   owner?: string | null;
-  createdAt?: string;
-  updatedAt?: string;
 };
 
 export type UpdateTodoInput = {
@@ -85,7 +90,6 @@ export type UpdateTodoInput = {
   description?: string | null;
   city?: string | null;
   image?: string | null;
-  owner?: string | null;
 };
 
 export type DeleteTodoInput = {
@@ -98,7 +102,6 @@ export type ModelTodoFilterInput = {
   description?: ModelStringInput | null;
   city?: ModelStringInput | null;
   image?: ModelStringInput | null;
-  owner?: ModelStringInput | null;
   and?: Array<ModelTodoFilterInput | null> | null;
   or?: Array<ModelTodoFilterInput | null> | null;
   not?: ModelTodoFilterInput | null;
@@ -122,56 +125,56 @@ export type ModelIDInput = {
 
 export type ModelTodoConnection = {
   __typename: "ModelTodoConnection";
-  items?: Array<Todo | null>;
+  items: Array<Todo | null>;
   nextToken?: string | null;
 };
 
 export type CreateTodoMutation = {
   __typename: "Todo";
   id: string;
-  name: string;
-  description: string;
-  city: string;
+  name?: string | null;
+  description?: string | null;
+  city?: string | null;
   image?: string | null;
-  owner?: string | null;
   createdAt: string;
   updatedAt: string;
+  owner?: string | null;
 };
 
 export type UpdateTodoMutation = {
   __typename: "Todo";
   id: string;
-  name: string;
-  description: string;
-  city: string;
+  name?: string | null;
+  description?: string | null;
+  city?: string | null;
   image?: string | null;
-  owner?: string | null;
   createdAt: string;
   updatedAt: string;
+  owner?: string | null;
 };
 
 export type DeleteTodoMutation = {
   __typename: "Todo";
   id: string;
-  name: string;
-  description: string;
-  city: string;
+  name?: string | null;
+  description?: string | null;
+  city?: string | null;
   image?: string | null;
-  owner?: string | null;
   createdAt: string;
   updatedAt: string;
+  owner?: string | null;
 };
 
 export type GetTodoQuery = {
   __typename: "Todo";
   id: string;
-  name: string;
-  description: string;
-  city: string;
+  name?: string | null;
+  description?: string | null;
+  city?: string | null;
   image?: string | null;
-  owner?: string | null;
   createdAt: string;
   updatedAt: string;
+  owner?: string | null;
 };
 
 export type ListTodosQuery = {
@@ -179,13 +182,13 @@ export type ListTodosQuery = {
   items: Array<{
     __typename: "Todo";
     id: string;
-    name: string;
-    description: string;
-    city: string;
+    name?: string | null;
+    description?: string | null;
+    city?: string | null;
     image?: string | null;
-    owner?: string | null;
     createdAt: string;
     updatedAt: string;
+    owner?: string | null;
   } | null>;
   nextToken?: string | null;
 };
@@ -193,37 +196,37 @@ export type ListTodosQuery = {
 export type OnCreateTodoSubscription = {
   __typename: "Todo";
   id: string;
-  name: string;
-  description: string;
-  city: string;
+  name?: string | null;
+  description?: string | null;
+  city?: string | null;
   image?: string | null;
-  owner?: string | null;
   createdAt: string;
   updatedAt: string;
+  owner?: string | null;
 };
 
 export type OnUpdateTodoSubscription = {
   __typename: "Todo";
   id: string;
-  name: string;
-  description: string;
-  city: string;
+  name?: string | null;
+  description?: string | null;
+  city?: string | null;
   image?: string | null;
-  owner?: string | null;
   createdAt: string;
   updatedAt: string;
+  owner?: string | null;
 };
 
 export type OnDeleteTodoSubscription = {
   __typename: "Todo";
   id: string;
-  name: string;
-  description: string;
-  city: string;
+  name?: string | null;
+  description?: string | null;
+  city?: string | null;
   image?: string | null;
-  owner?: string | null;
   createdAt: string;
   updatedAt: string;
+  owner?: string | null;
 };
 
 @Injectable({
@@ -242,9 +245,9 @@ export class APIService {
           description
           city
           image
-          owner
           createdAt
           updatedAt
+          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -270,9 +273,9 @@ export class APIService {
           description
           city
           image
-          owner
           createdAt
           updatedAt
+          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -298,9 +301,9 @@ export class APIService {
           description
           city
           image
-          owner
           createdAt
           updatedAt
+          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -323,9 +326,9 @@ export class APIService {
           description
           city
           image
-          owner
           createdAt
           updatedAt
+          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -351,9 +354,9 @@ export class APIService {
             description
             city
             image
-            owner
             createdAt
             updatedAt
+            owner
           }
           nextToken
         }
@@ -373,63 +376,90 @@ export class APIService {
     )) as any;
     return <ListTodosQuery>response.data.listTodos;
   }
-  OnCreateTodoListener: Observable<
-    SubscriptionResponse<OnCreateTodoSubscription>
-  > = API.graphql(
-    graphqlOperation(
-      `subscription OnCreateTodo {
-        onCreateTodo {
+  OnCreateTodoListener(
+    owner?: string
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateTodo">>
+  > {
+    const statement = `subscription OnCreateTodo($owner: String) {
+        onCreateTodo(owner: $owner) {
           __typename
           id
           name
           description
           city
           image
-          owner
           createdAt
           updatedAt
+          owner
         }
-      }`
-    )
-  ) as Observable<SubscriptionResponse<OnCreateTodoSubscription>>;
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (owner) {
+      gqlAPIServiceArguments.owner = owner;
+    }
+    return API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateTodo">>
+    >;
+  }
 
-  OnUpdateTodoListener: Observable<
-    SubscriptionResponse<OnUpdateTodoSubscription>
-  > = API.graphql(
-    graphqlOperation(
-      `subscription OnUpdateTodo {
-        onUpdateTodo {
+  OnUpdateTodoListener(
+    owner?: string
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateTodo">>
+  > {
+    const statement = `subscription OnUpdateTodo($owner: String) {
+        onUpdateTodo(owner: $owner) {
           __typename
           id
           name
           description
           city
           image
-          owner
           createdAt
           updatedAt
+          owner
         }
-      }`
-    )
-  ) as Observable<SubscriptionResponse<OnUpdateTodoSubscription>>;
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (owner) {
+      gqlAPIServiceArguments.owner = owner;
+    }
+    return API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateTodo">>
+    >;
+  }
 
-  OnDeleteTodoListener: Observable<
-    SubscriptionResponse<OnDeleteTodoSubscription>
-  > = API.graphql(
-    graphqlOperation(
-      `subscription OnDeleteTodo {
-        onDeleteTodo {
+  OnDeleteTodoListener(
+    owner?: string
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteTodo">>
+  > {
+    const statement = `subscription OnDeleteTodo($owner: String) {
+        onDeleteTodo(owner: $owner) {
           __typename
           id
           name
           description
           city
           image
-          owner
           createdAt
           updatedAt
+          owner
         }
-      }`
-    )
-  ) as Observable<SubscriptionResponse<OnDeleteTodoSubscription>>;
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (owner) {
+      gqlAPIServiceArguments.owner = owner;
+    }
+    return API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteTodo">>
+    >;
+  }
 }
